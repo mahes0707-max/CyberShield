@@ -30,9 +30,9 @@ export default function Login() {
 
     try{
 
-        await login(email,password);
+       await login(email, password);
 
-        navigate("/home");
+navigate("/system-loading");
 
     }
 
@@ -75,15 +75,15 @@ export default function Login() {
     setSubmitting(false);
 
 }
-useEffect(() => {
+// useEffect(() => {
 
-    if(currentUser){
+//     if(currentUser){
 
-        navigate("/home");
+//         navigate("/home");
 
-    }
+//     }
 
-}, [currentUser, navigate]);
+// }, [currentUser, navigate]);
   function handleMouseMove(e) {
     const card = cardRef.current
     if (!card) return

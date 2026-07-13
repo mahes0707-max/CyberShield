@@ -63,9 +63,9 @@ export default function TrainingCenter() {
     },
 
     {
-      title: "Final Assessment",
+      title: "Download Certificate",
       icon: "🏆",
-      desc: "Complete final challenge.",
+      desc: "Download your CyberShield Human Firewall Certificate.",
       path: "/final-assessment",
       color: "from-amber-500 to-yellow-400",
     },
@@ -115,6 +115,7 @@ const humanFirewallUnlocked =
   stats.passwordCompleted &&
   stats.threatCompleted;
 
+const certificateUnlocked = stats.humanFirewallCompleted;
 
   return (
     <>
@@ -141,14 +142,20 @@ const humanFirewallUnlocked =
                 onClick={() => {
 
                   if (
-                    module.title ===
-                      "Human Firewall Simulator" &&
-                    !humanFirewallUnlocked
-                  ) {
-                    return;
-                  }
+                  module.title === "Human Firewall Simulator" &&
+                  !humanFirewallUnlocked
+                ) {
+                  return;
+                }
 
-                  navigate(module.path);
+                if (
+                  module.title === "Download Certificate" &&
+                  !certificateUnlocked
+                ) {
+                  return;
+                }
+
+                navigate(module.path);
 
                 }}
                 className="cursor-pointer bg-[#001d3d]
@@ -187,22 +194,45 @@ const humanFirewallUnlocked =
                     font-semibold
                     transition
 
-                    ${
-                      module.title === "Human Firewall Simulator"
+                   ${
+                        module.title === "Human Firewall Simulator"
 
-                        ? humanFirewallUnlocked
+                        ?
 
-                          ? "bg-green-600 hover:bg-green-700"
+                        humanFirewallUnlocked
 
-                          : "bg-gray-700 cursor-not-allowed"
+                        ?
 
-                        : "bg-cyan-600 hover:bg-cyan-700"
-                    }
+                        "bg-green-600 hover:bg-green-700"
+
+                        :
+
+                        "bg-gray-700 cursor-not-allowed"
+
+                        :
+
+                        module.title === "Download Certificate"
+
+                        ?
+
+                        certificateUnlocked
+
+                        ?
+
+                        "bg-yellow-500 hover:bg-yellow-600"
+
+                        :
+
+                        "bg-gray-700 cursor-not-allowed"
+
+                        :
+
+                        "bg-cyan-600 hover:bg-cyan-700"
+                        }
                     `}
                   >
-                 {
-                    module.title ===
-                    "Human Firewall Simulator"
+                {
+                    module.title === "Human Firewall Simulator"
 
                     ?
 
@@ -211,6 +241,22 @@ const humanFirewallUnlocked =
                     ?
 
                     "🛡 Start Mission"
+
+                    :
+
+                    "🔒 Locked"
+
+                    :
+
+                    module.title === "Download Certificate"
+
+                    ?
+
+                    certificateUnlocked
+
+                    ?
+
+                    "Click Here"
 
                     :
 
@@ -241,6 +287,18 @@ const humanFirewallUnlocked =
                 </p>
 
                 }
+
+                {
+                  module.title === "Download Certificate" &&
+                  !certificateUnlocked && (
+
+                  <p className="mt-4 text-center text-red-400 text-sm font-semibold">
+
+                  Complete the Human Firewall mission to unlock your certificate.
+
+                  </p>
+
+                  )}
               </div>
             ))}
           </div>

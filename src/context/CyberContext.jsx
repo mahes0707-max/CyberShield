@@ -78,31 +78,26 @@ export const CyberProvider = ({ children }) => {
   }
 
   // Custom setStats
-  const setStats = async (value) => {
+  const setStats = (value) => {
 
-    let newStats;
+  setStatsState((prev) => {
 
-    if (typeof value === "function") {
+    const newStats =
+      typeof value === "function"
+        ? value(prev)
+        : value;
 
-      newStats = value(stats);
-
-    } else {
-
-      newStats = value;
-
-    }
-
-    // Dashboard update
-    setStatsState(newStats);
-
-    // Firebase update
     if (currentUser) {
-
-      await updateDoc(doc(db, "users", currentUser.uid), newStats);
-
+      updateDoc(
+        doc(db, "users", currentUser.uid),
+        newStats
+      ).catch(console.error);
     }
 
-  };
+    return newStats;
+  });
+
+};
 
   return (
     <CyberContext.Provider value={{ stats, setStats }}>

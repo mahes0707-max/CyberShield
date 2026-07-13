@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../components/navbar";
 import { useNavigate } from "react-router-dom";
 import insta from "../images/insta.png";
+import { useEffect } from "react";
 import facebook from "../images/facebook.png";
 import whatsapp from "../images/whatsapp.png";
 import twitter from "../images/twitter.png";
@@ -66,25 +67,28 @@ export default function PhishingQuiz() {
   const navigate = useNavigate();
   const { stats, setStats } = useContext(CyberContext);
   const currentQuestion = QUIZ_DATA[currentIndex];
+  useEffect(() => {
+  setStats(prev => ({
+    ...prev,
+    urlCorrect: 0,
+    urlCompleted: 0,
+  }));
+}, []);
 
   const handleAnswer = (userChoice) => {
+    
     if (isAnswered) return;
 
     setSelectedAnswer(userChoice);
     setIsAnswered(true);
+    const isCorrect = userChoice === currentQuestion.isReal;
 
-    setStats((prev) => ({
-      ...prev,
 
-      
-
-      urlCorrect:
-        userChoice === currentQuestion.isReal
-          ? prev.urlCorrect + 1
-          : prev.urlCorrect,
-
-      xp: userChoice === currentQuestion.isReal ? prev.xp + 10 : prev.xp,
-    }));
+    setStats(prev => ({
+  ...prev,
+  urlCorrect: isCorrect ? prev.urlCorrect + 1 : prev.urlCorrect,
+  xp: prev.xp + 10,
+}));
   };
 
   const handleNext = () => {
@@ -99,19 +103,16 @@ export default function PhishingQuiz() {
 
     }
 
-    else{
+   else {
 
-        setStats(prev => ({
+    setStats(prev => ({
+        ...prev,
+        urlCompleted: QUIZ_DATA.length
+    }));
 
-            ...prev,
+    setQuizComplete(true);
 
-            urlCompleted: QUIZ_DATA.length
-
-        }));
-
-        setQuizComplete(true);
-
-    }
+}
 
 };
 
@@ -120,6 +121,11 @@ export default function PhishingQuiz() {
     setSelectedAnswer(null);
     setIsAnswered(false);
     setQuizComplete(false);
+    setStats(prev => ({
+  ...prev,
+  urlCorrect: 0,
+  urlCompleted: 0,
+}));
   };
 
   if (quizComplete) {

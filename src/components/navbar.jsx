@@ -28,7 +28,7 @@ function Navbar() {
 
 };
   const navItems = [
-    { name: "Home", path: "/" },
+    { name: "Home", path: "/home" },
     { name: "Training Center", path: "/training-center" },
     { name: "Quiz", path: "/cyberquiz" },
     { name: "Dashboard", path: "/dashboard" },

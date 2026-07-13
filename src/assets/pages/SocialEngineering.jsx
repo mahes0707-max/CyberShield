@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -61,8 +61,8 @@ export default function SocialEngineering() {
         "Ignore the email",
       ],
 
-      correct: [1],
-
+      correct: [1,2],
+      multiple: true,
       explanation:
         "Always verify financial requests through phone or internal communication channels.",
 
@@ -117,6 +117,13 @@ export default function SocialEngineering() {
   const [show, setShow] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+  setStats((prev) => ({
+    ...prev,
+    socialCorrect: 0,
+    socialCompleted: 0,
+  }));
+}, []);
 
   const handleSelect = (index) => {
     if (selected.includes(index)) {
@@ -294,11 +301,17 @@ export default function SocialEngineering() {
             <div className="flex flex-col md:flex-row justify-center gap-5 mt-10">
               <button
                 onClick={() => {
-                  setQuizCompleted(false);
-                  setCurrent(0);
-                  setSelected([]);
-                  setShow(false);
-                }}
+                      setStats((prev) => ({
+                        ...prev,
+                        socialCorrect: 0,
+                        socialCompleted: 0,
+                      }));
+
+                      setQuizCompleted(false);
+                      setCurrent(0);
+                      setSelected([]);
+                      setShow(false);
+                    }}
                 className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-semibold transition hover:scale-105"
               >
                 🔄 Restart Quiz

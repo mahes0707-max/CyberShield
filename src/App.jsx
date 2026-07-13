@@ -10,13 +10,15 @@ import TrainingCenter from "./assets/pages/TrainingCenter.jsx";
 import ThreatLibrary from "./assets/pages/ThreatLibrary.jsx";
 import Dashboard from "./assets/pages/Dashboard";
 import HumanFirewallHome from "./assets/pages/HumanFirewall/HumanFirewallHome";
-<<<<<<< HEAD
 import About from "./components/about.jsx";
-=======
 import Login from "./assets/pages/Login.jsx"
 import Register from "./assets/pages/Register.jsx"
 import ProtectedRoute from "./components/ProtectedRoute";
->>>>>>> auth-system
+import SystemLoading from "./Anipages/SystemLoading.jsx";
+import CertificateUnlock from "./certcomponents/CertificateUnlock.jsx";
+
+
+
 function App() {
   return (
     <Routes>
@@ -31,14 +33,23 @@ function App() {
     </ProtectedRoute>
   }
 />
+<Route
+  path="/about"
+  element={
+    <ProtectedRoute>
+      <About />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/system-loading"
+  element={
+    <ProtectedRoute>
+      <SystemLoading />
+    </ProtectedRoute>
+  }
+/>
 
-
-<<<<<<< HEAD
-      <Route path="/email-phishing" element={<EmailPhishing />} />
-      <Route path="/password-checker" element={<PasswordChecker />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/cyberquiz" element={<CyberQuiz />} />
-=======
       <Route
   path="/email-phishing"
   element={
@@ -64,7 +75,6 @@ function App() {
     </ProtectedRoute>
   }
 />
->>>>>>> auth-system
 
       <Route
   path="/phishingurl"
@@ -116,6 +126,17 @@ function App() {
     </ProtectedRoute>
   }
 />
+
+<Route
+path="/certificate-unlock"
+element={
+<ProtectedRoute>
+<CertificateUnlock />
+</ProtectedRoute>
+}
+/>
+
+
     </Routes>
   );
 }

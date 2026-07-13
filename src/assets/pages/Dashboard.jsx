@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import Navbar from "../../components/navbar";
 import { CyberContext } from "../../context/CyberContext";
-
+import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const { stats } = useContext(CyberContext);
-
+  const navigate = useNavigate();
   // Password module completed or not
   const passwordCompleted = stats.passwordScore > 0 ? 1 : 0;
-
+  
   const totalCompleted =
     stats.emailCompleted +
     stats.urlCompleted +
@@ -47,7 +47,7 @@ export default function Dashboard() {
     (stats.passwordScore > 0) +
     (stats.urlCompleted > 0) +
     (stats.threatsViewed > 0) +
-    (stats.humanFirewallCompleted > 0);
+    (stats.humanFirewallCompleted ? 1 : 0);;
 
 
   const emailPercentage =
@@ -118,7 +118,7 @@ stats.threatCompleted;
     (completedModules / totalModules) * 100,
   );
 
-  const certificateUnlocked = completedModules === totalModules;
+ const certificateUnlocked = stats.humanFirewallCompleted;
 
   return (
     <>
@@ -462,6 +462,148 @@ with minimum 80%.
 </div>
 
 </div>
+{/* ================= Certificate Section ================= */}
+
+<div className="bg-gradient-to-br from-[#001d3d] to-[#002b5b] p-8 rounded-3xl shadow-2xl border border-cyan-500/20 mt-8">
+
+  <div className="flex items-center justify-between">
+
+    <div>
+
+      <h2 className="text-3xl font-bold text-yellow-400">
+        🏆 CyberShield Certificate
+      </h2>
+
+      <p className="text-gray-400 mt-2">
+        Complete the Human Firewall mission to unlock your professional certificate.
+      </p>
+
+    </div>
+
+    <div className="text-6xl">
+      {certificateUnlocked ? "🏆" : "🔒"}
+    </div>
+
+  </div>
+
+  <div className="mt-8 rounded-2xl bg-[#000814]/60 border border-cyan-500/20 p-6">
+
+    <div className="flex justify-between mb-4">
+
+      <span className="text-gray-300">
+        Certificate Status
+      </span>
+
+      <p className="text-sm text-cyan-400 mt-1">
+Certificate ID will be generated after verification.
+</p>
+
+      <span
+        className={`font-bold ${
+          certificateUnlocked
+            ? "text-green-400"
+            : "text-red-400"
+        }`}
+      >
+        {certificateUnlocked
+          ? "READY TO DOWNLOAD"
+          : "LOCKED"}
+      </span>
+
+    </div>
+
+    <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
+
+      <div
+        className={`h-full transition-all duration-1000 ${
+          certificateUnlocked
+            ? "bg-gradient-to-r from-green-400 to-cyan-400 w-full"
+            : "bg-gradient-to-r from-red-500 to-orange-500"
+        }`}
+        style={{
+          width: certificateUnlocked ? "100%" : "85%",
+        }}
+      />
+
+    </div>
+
+    <p className="mt-5 text-gray-300">
+
+      {
+        certificateUnlocked
+
+        ?
+
+        "Congratulations! Your CyberShield Human Firewall Certificate is ready."
+
+        :
+
+        "Complete the Human Firewall Simulator to unlock your certificate."
+      }
+
+    </p>
+      <p className="mt-3 text-green-300 text-sm">
+Issued by CyberShield AI Certification Authority
+</p>
+    <button
+
+      disabled={!certificateUnlocked}
+
+      onClick={() => navigate("/certificate-unlock")}
+
+      className={`
+
+      mt-8
+
+      w-full
+
+      py-4
+
+      rounded-2xl
+
+      text-lg
+
+      font-bold
+
+      transition-all
+
+      duration-300
+
+      ${
+        certificateUnlocked
+
+        ?
+
+        "bg-gradient-to-r from-yellow-400 to-amber-500 text-black hover:scale-105 hover:shadow-[0_0_30px_rgba(255,215,0,.5)]"
+
+        :
+
+        "bg-gray-700 text-gray-400 cursor-not-allowed"
+      }
+
+      `}
+
+    >
+
+      {
+
+      certificateUnlocked
+
+      ?
+
+      "🏆 DOWNLOAD CERTIFICATE"
+
+      :
+
+      "🔒 CERTIFICATE LOCKED"
+
+      }
+
+    </button>
+
+  </div>
+
+</div>
           </div>
           
     </>
@@ -548,7 +690,7 @@ width:`${percent}%`
 </div>
 
 </div>
-
+  
 );
 
 }
