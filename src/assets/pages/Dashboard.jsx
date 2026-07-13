@@ -218,7 +218,7 @@ stats.threatCompleted;
           >
             <h2 className="text-yellow-200 text-lg">🏆 Achievement Badge</h2>
 
-            <h1 className="text-5xl mt-5 font-bold ">{badge}</h1>
+            <h1 className="text-5xl mt-5 font-bold text-white ">{badge}</h1>
           </div>
 
           {/* Current Level */}

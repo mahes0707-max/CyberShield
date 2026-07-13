@@ -10,7 +10,7 @@ import TrainingCenter from "./assets/pages/TrainingCenter.jsx";
 import ThreatLibrary from "./assets/pages/ThreatLibrary.jsx";
 import Dashboard from "./assets/pages/Dashboard";
 import HumanFirewallHome from "./assets/pages/HumanFirewall/HumanFirewallHome";
-
+import About from "./components/about.jsx";
 function App() {
   return (
     <Routes>
@@ -20,7 +20,7 @@ function App() {
 
       <Route path="/email-phishing" element={<EmailPhishing />} />
       <Route path="/password-checker" element={<PasswordChecker />} />
-
+      <Route path="/about" element={<About />} />
       <Route path="/cyberquiz" element={<CyberQuiz />} />
 
       <Route path="/phishingurl" element={<PhishingUrl />} />

@@ -71,30 +71,33 @@ function EmailPhishing() {
 
 
   const handleSubmit = () => {
+
     if (!selected) {
-      alert("Please select an option");
-      return;
+        alert("Please select an option");
+        return;
     }
 
     const isCorrect = selected === currentMail.answer;
 
     if (isCorrect) {
-      setScore((prev) => prev + 1);
+        setScore(prev => prev + 1);
     }
 
-    setStats((prev) => ({
-      ...prev,
-        emailCorrect: score,
-        emailCompleted: emails.length,
-      
+    setStats(prev => ({
 
-      emailCorrect: isCorrect ?prev.emailCorrect + 1 : prev.emailCorrect,
+        ...prev,
 
-      xp: prev.xp + 10,
+        emailCorrect: isCorrect
+            ? prev.emailCorrect + 1
+            : prev.emailCorrect,
+
+        xp: prev.xp + 10
+
     }));
 
     setShowAnalysis(true);
-  };
+
+};
 
   const nextQuestion = () => {
 
