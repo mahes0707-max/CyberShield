@@ -14,13 +14,13 @@ export default function LeftPanel() {
 
       <h1 className="font-orbitron font-black text-center text-white text-[32px] md:text-[46px] tracking-[2px] drop-shadow-[0_0_6px_rgba(255,255,255,.3)]">
         CYBER
-        <span className="text-cyberprimary drop-shadow-[0_0_12px_rgba(0,229,255,.9)]">SHIELD</span>
+        <span className="text-[#00E5FF] drop-shadow-[0_0_12px_rgba(0,229,255,.9)]">SHIELD</span>
       </h1>
-      <p className="mt-2 text-[13.5px] tracking-[4px] text-cyberdim font-medium text-center">
+      <p className="mt-2 text-[13.5px] tracking-[4px] text-[#8FB4C9] font-medium text-center">
         PROTECTING YOUR DIGITAL WORLD
       </p>
 
-      <div className="mt-[22px] px-[26px] py-[10px] rounded-full border border-cyberprimary/40 bg-cyberprimary/[.06] shadow-[0_0_18px_rgba(0,229,255,.15),inset_0_0_12px_rgba(0,229,255,.08)] text-[12.5px] tracking-[2.5px] text-cyberaccent font-semibold whitespace-nowrap">
+      <div className="mt-[22px] px-[26px] py-[10px] rounded-full border border-[#00E5FF]/40 bg-[#00E5FF]/06 shadow-[0_0_18px_rgba(0,229,255,.15),inset_0_0_12px_rgba(0,229,255,.08)] text-[12.5px] tracking-[2.5px] text-[#48CAE4] font-semibold whitespace-nowrap">
         SECURE &nbsp;•&nbsp; DETECT &nbsp;•&nbsp; PREVENT &nbsp;•&nbsp; RESPOND
       </div>
 
@@ -28,12 +28,12 @@ export default function LeftPanel() {
         {features.map((f, i) => (
           <div
             key={f.title}
-            className="bg-cybercard/50 border border-cyberprimary/[.18] rounded-2xl px-[14px] py-4 backdrop-blur-md text-left transition-all duration-300 hover:border-cyberprimary/60 hover:shadow-[0_0_24px_rgba(0,229,255,.25)] hover:-translate-y-2 animate-floatCard"
+            className="bg-[#001D3D]/50 border border-[#00E5FF]/18 rounded-2xl px-[14px] py-4 backdrop-blur-md text-left transition-all duration-300 hover:border-[#00E5FF]/60 hover:shadow-[0_0_24px_rgba(0,229,255,.25)] hover:-translate-y-2 animate-[floatCard_5s_ease-in-out_infinite]"
             style={{ animationDelay: `${i * 0.4}s` }}
           >
             <div className="text-xl mb-2 drop-shadow-[0_0_8px_rgba(0,229,255,.8)]">{f.icon}</div>
             <div className="text-[13px] font-semibold text-white tracking-wide">{f.title}</div>
-            <div className="text-[11.5px] text-cyberdim mt-[3px] leading-snug">{f.desc}</div>
+            <div className="text-[11.5px] text-[#8FB4C9] mt-[3px] leading-snug">{f.desc}</div>
           </div>
         ))}
       </div>

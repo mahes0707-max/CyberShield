@@ -10,27 +10,101 @@ import TrainingCenter from "./assets/pages/TrainingCenter.jsx";
 import ThreatLibrary from "./assets/pages/ThreatLibrary.jsx";
 import Dashboard from "./assets/pages/Dashboard";
 import HumanFirewallHome from "./assets/pages/HumanFirewall/HumanFirewallHome";
-
+import Login from "./assets/pages/Login.jsx"
+import Register from "./assets/pages/Register.jsx"
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-     
+      <Route path="/" element={<Login />} />
+      <Route path="login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+  path="/home"
+  element={
+    <ProtectedRoute>
+      <Home />
+    </ProtectedRoute>
+  }
+/>
 
 
-      <Route path="/email-phishing" element={<EmailPhishing />} />
-      <Route path="/password-checker" element={<PasswordChecker />} />
+      <Route
+  path="/email-phishing"
+  element={
+    <ProtectedRoute>
+      <EmailPhishing />
+    </ProtectedRoute>
+  }
+/>
+      <Route
+  path="/password-checker"
+  element={
+    <ProtectedRoute>
+      <PasswordChecker />
+    </ProtectedRoute>
+  }
+/>
 
-      <Route path="/cyberquiz" element={<CyberQuiz />} />
+     <Route
+  path="/cyberquiz"
+  element={
+    <ProtectedRoute>
+      <CyberQuiz />
+    </ProtectedRoute>
+  }
+/>
 
-      <Route path="/phishingurl" element={<PhishingUrl />} />
+      <Route
+  path="/phishingurl"
+  element={
+    <ProtectedRoute>
+      <PhishingUrl />
+    </ProtectedRoute>
+  }
+/>
 
-      <Route path="/social-engineering" element={<SocialEngineering />} />
-      <Route path="/training-center" element={<TrainingCenter />} />
-      <Route path="/threat-library" element={<ThreatLibrary />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route
+  path="/social-engineering"
+  element={
+    <ProtectedRoute>
+      <SocialEngineering />
+    </ProtectedRoute>
+  }
+/>
+     <Route
+  path="/training-center"
+  element={
+    <ProtectedRoute>
+      <TrainingCenter />
+    </ProtectedRoute>
+  }
+/>
+      <Route
+  path="/threat-library"
+  element={
+    <ProtectedRoute>
+      <ThreatLibrary />
+    </ProtectedRoute>
+  }
+/>
+      <Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
 
-      <Route path="/human-firewall" element={<HumanFirewallHome />} />
+     <Route
+  path="/human-firewall"
+  element={
+    <ProtectedRoute>
+      <HumanFirewallHome />
+    </ProtectedRoute>
+  }
+/>
     </Routes>
   );
 }

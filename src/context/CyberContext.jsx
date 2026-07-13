@@ -1,47 +1,108 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
+import { db } from "../firebase/firebase";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 
 export const CyberContext = createContext();
 
+const initialStats = {
+  emailCompleted: 0,
+  emailCorrect: 0,
+
+  urlCompleted: 0,
+  urlCorrect: 0,
+
+  socialCompleted: 0,
+  socialCorrect: 0,
+
+  threatsViewed: 0,
+
+  securityLabCompleted: 0,
+
+  quizCompleted: 0,
+  quizCorrect: 0,
+
+  passwordChecks: 0,
+  passwordScore: 0,
+  passwordCompleted: 0,
+
+  humanFirewallCompleted: 0,
+
+  humanFirewallScore: 0,
+
+  finalAssessmentUnlocked: false,
+
+  overallProgress: 0,
+
+  threatCompleted: false,
+
+  badges: [],
+
+  certificates: [],
+
+  level: 1,
+
+  xp: 0,
+};
+
 export const CyberProvider = ({ children }) => {
-  const [stats, setStats] = useState({
-    emailCompleted: 0,
-    emailCorrect: 0,
 
-    urlCompleted: 0,
-    urlCorrect: 0,
+  const { currentUser } = useAuth();
 
-    socialCompleted: 0,
-    socialCorrect: 0,
+  const [stats, setStatsState] = useState(initialStats);
 
-    threatsViewed: 0,
+  // Load from Firebase after login
+  useEffect(() => {
 
-    securityLabCompleted: 0,
+    if (!currentUser) return;
 
-    quizCompleted: 0,
-    quizCorrect: 0,
+    loadStats();
 
-    passwordChecks: 0,
-    passwordScore: 0,
-    passwordCompleted: 0,
+  }, [currentUser]);
 
-    humanFirewallCompleted: 0,
+  async function loadStats() {
 
-    humanFirewallScore: 0,
+    const ref = doc(db, "users", currentUser.uid);
 
-    finalAssessmentUnlocked: false,
+    const snap = await getDoc(ref);
 
-    overallProgress: 0,
+    if (snap.exists()) {
 
-    threatCompleted: false,
+      const data = snap.data();
 
-    badges: [],
+      setStatsState((prev) => ({
+        ...prev,
+        ...data,
+      }));
+    }
+  }
 
-    certificates: [],
+  // Custom setStats
+  const setStats = async (value) => {
 
-    level: 1,
+    let newStats;
 
-    xp: 0,
-  });
+    if (typeof value === "function") {
+
+      newStats = value(stats);
+
+    } else {
+
+      newStats = value;
+
+    }
+
+    // Dashboard update
+    setStatsState(newStats);
+
+    // Firebase update
+    if (currentUser) {
+
+      await updateDoc(doc(db, "users", currentUser.uid), newStats);
+
+    }
+
+  };
 
   return (
     <CyberContext.Provider value={{ stats, setStats }}>
