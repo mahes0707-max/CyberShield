@@ -4,12 +4,14 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { CyberProvider } from "./context/CyberContext";
-
+import { AuthProvider } from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <CyberProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </CyberProvider>
+  <AuthProvider>
+    <CyberProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </CyberProvider>
+  </AuthProvider>
 );

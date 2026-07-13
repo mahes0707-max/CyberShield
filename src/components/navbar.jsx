@@ -1,12 +1,32 @@
 import React, { useState } from "react";
 import boy from "../assets/icons/boy.png";
-import sunshine from "../assets/icons/sunshine.png";
 import titlelogo from "../assets/icons/titlelogo.png";
 import "../index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { currentUser, logout } = useAuth();
+  const handleLogout = async () => {
+
+  try {
+
+    await logout();
+
+    navigate("/");
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+
+  }
+
+};
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Training Center", path: "/training-center" },
@@ -29,14 +49,73 @@ function Navbar() {
               <Link
                 key={item.name}
                 to={item.path}
-                className="font-bold text-white hover:text-blue-500 transition"
+                className={`font-bold transition
+
+                        ${
+                        location.pathname === item.path
+
+                        ?
+
+                        "text-cyan-400"
+
+                        :
+
+                        "text-white hover:text-cyan-400"
+
+                        }`}
               >
                 {item.name}
               </Link>
             ))}
 
-            <img src={sunshine} className="w-6 h-6 cursor-pointer" />
-            <img src={boy} className="w-6 h-6 cursor-pointer" />
+            {currentUser ? (
+
+              <>
+
+                <div className="flex items-center gap-3">
+
+                  <img
+                    src={boy}
+                    className="w-8 h-8 rounded-full"
+                  />
+
+                  <span className="font-semibold text-cyan-400">
+
+                    {currentUser.displayName}
+
+                  </span>
+
+                </div>
+
+                <button
+
+                  onClick={handleLogout}
+
+                  className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg"
+
+                >
+
+                  Logout
+
+                </button>
+
+              </>
+
+            ) : (
+
+              <button
+
+                onClick={() => navigate("/login")}
+
+                className="bg-cyan-600 hover:bg-cyan-700 px-5 py-2 rounded-lg"
+
+              >
+
+                Login
+
+              </button>
+
+            )}
           </div>
         </div>
 
@@ -72,10 +151,58 @@ function Navbar() {
                 </Link>
               ))}
 
-              <div className="flex gap-5 mt-auto">
-                <img src={sunshine} className="w-6 h-6 cursor-pointer" />
-                <img src={boy} className="w-6 h-6 cursor-pointer" />
-              </div>
+              <div className="mt-auto">
+
+                        {currentUser ? (
+
+                          <>
+
+                            <div className="flex items-center gap-3 mb-5">
+
+                              <img
+                                src={boy}
+                                className="w-10 h-10 rounded-full"
+                              />
+
+                              <span className="text-cyan-400 font-bold">
+
+                                {currentUser.displayName}
+
+                              </span>
+
+                            </div>
+
+                            <button
+
+                              onClick={handleLogout}
+
+                              className="w-full bg-red-600 hover:bg-red-700 py-3 rounded-xl"
+
+                            >
+
+                              Logout
+
+                            </button>
+
+                          </>
+
+                        ) : (
+
+                          <button
+
+                            onClick={() => navigate("/login")}
+
+                            className="w-full bg-cyan-600 hover:bg-cyan-700 py-3 rounded-xl"
+
+                          >
+
+                            Login
+
+                          </button>
+
+                        )}
+
+                      </div>
             </div>
           </div>
         )}
