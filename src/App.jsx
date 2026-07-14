@@ -9,7 +9,7 @@ import SocialEngineering from "./assets/pages/SocialEngineering.jsx";
 import TrainingCenter from "./assets/pages/TrainingCenter.jsx";
 import ThreatLibrary from "./assets/pages/ThreatLibrary.jsx";
 import Dashboard from "./assets/pages/Dashboard";
-import HumanFirewallHome from "./assets/pages/HumanFirewall/HumanFirewallHome";
+import HumanFirewallHome from "./assets/pages/Humanfirewall/HumanFirewallHome";
 import About from "./components/about.jsx";
 import Login from "./assets/pages/Login.jsx"
 import Register from "./assets/pages/Register.jsx"
