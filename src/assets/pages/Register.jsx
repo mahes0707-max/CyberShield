@@ -42,7 +42,13 @@ export default function Register() {
   try {
     await register(name, email, pw);
 
-    navigate("/home");
+    navigate("/system-loading", {
+  state: {
+    name: name,
+    redirectTo: "/home",
+  },
+});
+
   } catch (err) {
 
   switch (err.code) {
