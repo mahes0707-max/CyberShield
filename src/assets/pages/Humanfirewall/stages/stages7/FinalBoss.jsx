@@ -213,113 +213,182 @@ export default function FinalBoss({ score, setScore, addLog }) {
       )}
 
       {completed && (
-        <div
-          className="
-                        min-h-[70vh]
-                        flex
-                        items-center
-                        justify-center"
-        >
-          <div
-            className="
-                                bg-[#001233]
-                                p-5
-                                sm:p-8
-                                md:p-10
-                                rounded-3xl
-                                max-w-3xl
-                                w-full
-                                mx-auto"
-          >
-            <h1
-              className="
-                                text-3xl
-                                sm:text-4xl
-                                md:text-5xl
-                                lg:text-6xl
-                                font-bold
-                                text-green-400"
-            >
-              🎉 Congratulations
-            </h1>
+  <div className="min-h-screen bg-[#000814] flex items-center justify-center px-5 py-10">
 
-            <h2
-              className="
-                                text-3xl
-                                mt-8
-                                text-white"
-            >
-              Human Firewall Simulator Completed
-            </h2>
+    <div
+      className="
+      relative
+      overflow-hidden
+      bg-gradient-to-br
+      from-[#001233]
+      via-[#001d3d]
+      to-[#000814]
+      border
+      border-cyan-500/40
+      rounded-3xl
+      max-w-4xl
+      w-full
+      p-8
+      md:p-12
+      shadow-[0_0_70px_rgba(0,229,255,.18)]
+      text-center"
+    >
 
-            <p
-              className="
-                                mt-8
-                                text-xl
-                                text-gray-300"
-            >
-              You are now eligible for the
-              <span
-                className="
-                                    text-cyan-400
-                                    font-bold"
-              >
-                {" "}
-                FINAL ASSESSMENT
-              </span>
-            </p>
+      {/* Animated Glow */}
 
-            <div
-              className="
-                                mt-8
-                                bg-[#000814]
-                                p-6
-                                rounded-xl"
-            >
-              <h2
-                className="
-                                    text-cyan-400"
-              >
-                Investigation Score
-              </h2>
+      <div className="absolute -top-40 -left-40 w-80 h-80 bg-cyan-500/20 blur-[120px] animate-pulse"></div>
 
-              <h1
-                className="
-                                            text-5xl
-                                            mt-3"
-              >
-                {rank}
-              </h1>
-              <p
-                className="
-                                            mt-5
-                                            text-2xl"
-              >
-                Score:
-                {report.initial === "invoice_update.xlsm"}+ ...
-              </p>
-            </div>
+      <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-blue-500/20 blur-[120px] animate-pulse"></div>
 
-            <button
-              onClick={() => navigate("/dashboard")}
-              className="
-                                    mt-10
-                                    w-full
-                                    sm:w-auto
-                                    bg-cyan-600
-                                    hover:bg-cyan-700
-                                    px-8
-                                    py-4
-                                    rounded-xl
-                                    font-bold
-                                    transition
-                                    hover:scale-105"
-            >
-              📊 Back To Dashboard
-            </button>
-          </div>
+      {/* Badge */}
+
+      <div className="relative">
+
+        <div className="text-8xl animate-bounce">
+          🛡️
         </div>
-      )}
+
+        <h1 className="mt-5 text-4xl md:text-6xl font-extrabold text-green-400">
+
+          MISSION ACCOMPLISHED
+
+        </h1>
+
+        <p className="mt-3 text-cyan-300 tracking-[4px] uppercase">
+
+          Human Firewall Simulator Completed
+
+        </p>
+
+      </div>
+
+      {/* Divider */}
+
+      <div className="w-40 h-[2px] bg-cyan-500 mx-auto my-8"></div>
+
+      {/* Appreciation */}
+
+      <p className="text-lg md:text-xl text-gray-300 leading-8 max-w-3xl mx-auto">
+
+        🎉 Congratulations!
+
+        <br /><br />
+
+        You successfully identified phishing attempts,
+        investigated suspicious evidence,
+        analyzed cyber threats,
+        and completed the final Human Firewall mission.
+
+        <br /><br />
+
+        <span className="text-cyan-400 font-bold">
+
+          You are now officially eligible to unlock your CyberShield Certificate.
+
+        </span>
+
+      </p>
+
+      {/* Score Card */}
+
+      <div className="mt-10 grid md:grid-cols-2 gap-6">
+
+        <div className="bg-[#000814] rounded-2xl p-6 border border-cyan-500/20">
+
+          <h3 className="text-cyan-400 text-lg">
+
+            Investigation Rank
+
+          </h3>
+
+          <h1 className="mt-4 text-6xl font-extrabold text-white">
+
+            {rank}
+
+          </h1>
+
+        </div>
+
+        <div className="bg-[#000814] rounded-2xl p-6 border border-cyan-500/20">
+
+          <h3 className="text-cyan-400 text-lg">
+
+            Final Score
+
+          </h3>
+
+          <h1 className="mt-4 text-6xl font-extrabold text-green-400">
+
+            {report.initial === "invoice_update.xlsm" ? "100%" : "80%"}
+
+          </h1>
+
+        </div>
+
+      </div>
+
+      {/* Achievement */}
+
+      <div className="mt-10 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-2xl p-6">
+
+        <h2 className="text-2xl text-cyan-300 font-bold">
+
+          🏆 Achievement Unlocked
+
+        </h2>
+
+        <p className="mt-4 text-gray-300 leading-7">
+
+          Human Firewall Certification has been unlocked.
+
+          <br />
+
+          Your cybersecurity awareness journey has reached its first milestone.
+
+        </p>
+
+      </div>
+
+      {/* Buttons */}
+
+      <div className="flex flex-col sm:flex-row justify-center gap-5 mt-10">
+
+        <button
+          onClick={() => navigate("/training-center")}
+          className="
+          px-8
+          py-4
+          rounded-xl
+          bg-green-600
+          hover:bg-green-700
+          transition
+          hover:scale-105
+          font-bold"
+        >
+          🏆 Download Certificate
+        </button>
+
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="
+          px-8
+          py-4
+          rounded-xl
+          bg-cyan-600
+          hover:bg-cyan-700
+          transition
+          hover:scale-105
+          font-bold"
+        >
+          📊 Dashboard
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
     </div>
   );
 }
