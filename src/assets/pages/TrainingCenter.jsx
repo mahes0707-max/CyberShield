@@ -66,7 +66,7 @@ export default function TrainingCenter() {
       title: "Download Certificate",
       icon: "🏆",
       desc: "Download your CyberShield Human Firewall Certificate.",
-      path: "/final-assessment",
+      path: "/certificate-unlock",
       color: "from-amber-500 to-yellow-400",
     },
   ];
