@@ -14,7 +14,7 @@ export default function MissionSuccess() {
       </div>
 
       <div
-        className="font-['Orbitron'] font-black text-[34px] md:text-[54px] tracking-[3px] text-[#00FF9C]"
+        className=" text-center font-['Orbitron'] font-black text-[34px] md:text-[54px] tracking-[3px] text-[#00FF9C]"
         style={{ animation: 'bigGlowPulse 1.6s ease-in-out infinite' }}
       >
         MISSION SUCCESS

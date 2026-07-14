@@ -494,9 +494,7 @@ with minimum 80%.
         Certificate Status
       </span>
 
-      <p className="text-sm text-cyan-400 mt-1">
-Certificate ID will be generated after verification.
-</p>
+      
 
       <span
         className={`font-bold ${

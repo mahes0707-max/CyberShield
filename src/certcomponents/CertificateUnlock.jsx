@@ -8,7 +8,10 @@ import MissionSuccess from './MissionSuccess.jsx'
 import ClosingQuote from './ClosingQuote.jsx'
 import CertificateReveal from './CertificateReveal.jsx'
 import ConfettiBurst from './ConfettiBurst.jsx'
-
+import { useAuth } from "../context/AuthContext";
+import { getCertificateData } from "../utils/getCertificateData";
+import { generateCertificate } from "../utils/generateCertificate";
+import { useNavigate } from "react-router-dom";
 // Phase order + how long each one stays on screen (ms).
 // Matches the 10-second story: boot -> typing -> analysis -> verdict -> success,
 // plus a closing-quote beat before the certificate itself (which just waits).
@@ -16,34 +19,22 @@ const PHASES = [
   { name: 'boot', duration: 2000 },
   { name: 'typing', duration: 2000 },
   { name: 'analysis', duration: 2000 },
-  { name: 'verdict', duration: 2000 },
+  { name: 'verdict', duration: 3500 },
   { name: 'success', duration: 2000 },
   { name: 'quote', duration: 3000 },
   { name: 'certificate', duration: null }, // waits for the user
 ]
 
-/**
- * Full-screen "AI graduation ceremony" sequence.
- * Mount it conditionally from a click on "Final Assessment" / "Download Certificate":
- *
- *   const [showCertificate, setShowCertificate] = useState(false)
- *   <button onClick={() => setShowCertificate(true)}>Final Assessment</button>
- *   {showCertificate && (
- *     <CertificateUnlock
- *       userName={user.name}
- *       onDownload={handleDownload}
- *       onClose={() => setShowCertificate(false)}
- *     />
- *   )}
- */
+
 export default function CertificateUnlock({
   userName = 'Analyst',
   courseName = 'CyberShield Human Firewall Training',
   scores,
-  onDownload,
   onClose,
 }) {
   const [phaseIndex, setPhaseIndex] = useState(0)
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [bootPercent, setBootPercent] = useState(2)
   const elapsedRef = useRef(0)
 
@@ -68,6 +59,46 @@ export default function CertificateUnlock({
     return () => clearInterval(interval)
   }, [phase])
 
+    function handleClose() {
+
+  if (onClose) {
+
+    onClose();
+
+  }
+
+  navigate("/home", { replace: true });
+
+}
+
+  async function handleDownload() {
+
+  try {
+
+    const certificate = await getCertificateData(currentUser);
+
+    await generateCertificate({
+
+      name: currentUser.displayName,
+
+      certificateId: certificate.certificateId,
+
+      issueDate: certificate.certificateDate,
+
+    });
+
+  }
+
+  catch (err) {
+
+    console.error(err);
+
+    alert("Certificate download failed.");
+
+  }
+
+}
+
   return (
     <div className="fixed inset-0 z-[60] bg-[#000814] overflow-hidden">
       <BackgroundEffects />
@@ -77,7 +108,7 @@ export default function CertificateUnlock({
       {phase === 'certificate' && (
         <button
           type="button"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close"
           className="absolute top-5 right-5 md:top-8 md:right-8 z-[80] w-9 h-9 rounded-full border border-[#00E5FF]/30 text-[#8FB4C9] hover:text-[#00E5FF] hover:border-[#00E5FF]/70 flex items-center justify-center transition-colors duration-200"
         >
@@ -94,18 +125,10 @@ export default function CertificateUnlock({
         {phase === 'quote' && <ClosingQuote />}
         {phase === 'certificate' && (
           <CertificateReveal
-                      userName={userName}
-                      courseName={courseName}
-                      onDownload={() => {
-                        // PDF generation later
-                        alert("Certificate Download Started");
-
-                        // After download return to dashboard
-                        if (onClose) {
-                          onClose();
-                        }
-                      }}
-                    />
+                userName={currentUser.displayName}
+                courseName={courseName}
+                onDownload={handleDownload}
+            />
         )}
       </div>
     </div>
